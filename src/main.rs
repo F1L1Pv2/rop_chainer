@@ -15,7 +15,11 @@ enum Token{
     Address(String),
     Text(String),
     Assign,
-    SemiColon
+    NewLine
+}
+
+fn trim_start(s: String) -> String {
+    s.trim_start_matches(|c: char| c.is_whitespace() && c != '\n').to_string()
 }
 
 impl Token{
@@ -96,7 +100,7 @@ fn tokenize(content: String) -> Vec<Token>{
     let mut tokens: Vec<Token> = Vec::new();
 
     while !content.is_empty(){
-        content = content.trim_start().to_string();
+        content = trim_start(content);
         if content.is_empty(){break;}
 
         if content.starts_with("\""){
@@ -125,9 +129,9 @@ fn tokenize(content: String) -> Vec<Token>{
             continue;
         }
 
-        if content.starts_with(";"){
+        if content.starts_with("\n"){
             content.remove(0);
-            tokens.push(Token::SemiColon);
+            tokens.push(Token::NewLine);
             continue;
         }
 
@@ -200,7 +204,7 @@ fn main() {
             let equ = tokens.remove(0);
             if matches!(equ, Token::Assign){
                 let mut expr: Vec<Token> = Vec::new();
-                while !matches!(tokens[0].clone(), Token::SemiColon){
+                while !matches!(tokens[0].clone(), Token::NewLine){
                     expr.push(tokens.remove(0));
                 }
                 tokens.remove(0);
@@ -209,6 +213,11 @@ fn main() {
                 err("Expected '='")
             }
         }else{
+
+            if matches!(token, Token::NewLine){
+                continue;
+            }
+
             err("Expected Identifier")
         }
     } 
