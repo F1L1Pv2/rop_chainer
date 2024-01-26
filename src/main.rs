@@ -103,6 +103,13 @@ fn tokenize(content: String) -> Vec<Token>{
         content = trim_start(content);
         if content.is_empty(){break;}
 
+        if content.starts_with("//"){
+            while content.chars().nth(0).unwrap() != '\n'{
+                content.remove(0);
+            }
+            continue;
+        }
+
         if content.starts_with("\""){
             let mut text = String::new();
             content.remove(0);
@@ -135,16 +142,20 @@ fn tokenize(content: String) -> Vec<Token>{
             continue;
         }
 
-
-        let mut ident = String::new();
-        while content.chars().nth(0).unwrap().is_alphanumeric(){
-            ident += &content.remove(0).to_string();
-            if content.is_empty(){
-                break;
+        if content.chars().nth(0).unwrap().is_alphanumeric(){
+            let mut ident = String::new();
+            while content.chars().nth(0).unwrap().is_alphanumeric(){
+                ident += &content.remove(0).to_string();
+                if content.is_empty(){
+                    break;
+                }
             }
+
+            tokens.push(Token::Ident(ident));
+            continue;
         }
 
-        tokens.push(Token::Ident(ident));
+        content.remove(0);
     }
 
     return tokens;

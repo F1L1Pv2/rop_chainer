@@ -1,5 +1,5 @@
-a = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-b = "bbbbbbbb"
+a = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" // 32 bytes to get into end of stack
+b = "bbbbbbbb" // bypassing rbp
 
 placeholder = a b
 
